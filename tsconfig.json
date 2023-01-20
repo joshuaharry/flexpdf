@@ -1,6 +1,6 @@
 {
   "include": ["./src/**/*", "./demo/**/*"],
-  "exclude": ["node_modules"],
+  "exclude": ["**/node_modules"],
   "compilerOptions": {
     "incremental": true,
     "tsBuildInfoFile": "./.tsbuildinfo",
@@ -13,8 +13,9 @@
     "jsx": "react-jsx",
     "experimentalDecorators": false,
     "emitDecoratorMetadata": false,
+    "emitDeclarationOnly": true,
+    "declaration": true,
     "allowJs": false,
-    "noEmit": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
