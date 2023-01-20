@@ -1,8 +1,8 @@
 import "@testing-library/jest-dom/extend-expect";
-import crypto from "crypto";
-// @ts-expect-error - Should not expect crypto.
-globalThis.crypto = crypto;
-globalThis.crypto.randomUUID = crypto.randomUUID;
+// eslint-disable-next-line
+const crypto = require("crypto");
+window.crypto = crypto;
+window.crypto.randomUUID = crypto.randomUUID;
 
 class MockView {
   // eslint-disable-next-line
