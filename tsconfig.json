@@ -9,7 +9,7 @@
     "disableSourceOfProjectReferenceRedirect": true,
     "disableSolutionSearching": true,
     "disableReferencedProjectLoad": true,
-    "lib": ["dom"],
+    "lib": ["dom", "node"],
     "jsx": "react-jsx",
     "experimentalDecorators": false,
     "emitDecoratorMetadata": false,
