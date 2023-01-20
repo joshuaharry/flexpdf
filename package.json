@@ -1,6 +1,6 @@
 {
   "name": "react-pdf-dom",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Flexible UI components for building sophisticated web applications atop PDF documents.",
   "scripts": {
     "start": "parcel serve index.html",
