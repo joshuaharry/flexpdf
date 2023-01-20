@@ -1,7 +1,7 @@
 import React from "react";
 import { Text } from "@adobe/react-spectrum";
 
-const RANDOM_PDF_ID = window.crypto.randomUUID();
+const RANDOM_PDF_ID = globalThis.crypto.randomUUID();
 
 interface Header {
   // Key needed to view a PDF.
@@ -47,12 +47,15 @@ interface PdfProps {
   viewConfig: ViewConfig;
   // What are the styles of the parent div?
   parentContainerCss?: React.CSSProperties;
+  // What are the children of the PDF?
+  children?: React.ReactNode;
 }
 
-const PDF_NOT_FOUND = `We could not find the Adobe Embed API on this page. Please add it into the document and try again.`;
+export const PDF_NOT_FOUND = `We could not find the Adobe Embed API on this page. Please add it into the document and try again.`;
 
 export const PDF = (props: PdfProps) => {
-  const { pdfConfig, viewConfig, clientId, parentContainerCss } = props;
+  const { pdfConfig, viewConfig, clientId, parentContainerCss, children } =
+    props;
   const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
   React.useEffect(() => {
     const handleLoadPdfEffect = async () => {
@@ -76,6 +79,7 @@ export const PDF = (props: PdfProps) => {
   return (
     <div style={{ position: "relative", ...parentContainerCss }}>
       <div id={RANDOM_PDF_ID} style={{ position: "absolute" }} />
+      {children}
     </div>
   );
 };
