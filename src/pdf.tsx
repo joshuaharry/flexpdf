@@ -51,7 +51,7 @@ interface PdfProps {
   children?: React.ReactNode;
 }
 
-const PDF_NOT_FOUND = `We could not find the Adobe Embed API on this page. Please add it into the document and try again.`;
+export const PDF_NOT_FOUND = `We could not find the Adobe Embed API on this page. Please add it into the document and try again.`;
 
 export const PDF = (props: PdfProps) => {
   const { pdfConfig, viewConfig, clientId, parentContainerCss, children } =
