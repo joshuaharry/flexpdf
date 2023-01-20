@@ -1,7 +1,7 @@
 import React from "react";
 import { Text } from "@adobe/react-spectrum";
 
-const RANDOM_PDF_ID = window.crypto.randomUUID();
+const RANDOM_PDF_ID = globalThis.crypto.randomUUID();
 
 interface Header {
   // Key needed to view a PDF.
