@@ -1,11 +1,11 @@
 {
-  "name": "embed-annotations",
+  "name": "pdf-dom-annotations",
   "version": "1.0.0",
   "description": "A flexible solution for adding annotations on top of a PDF document.",
   "scripts": {
     "start": "vite",
     "test": "jest",
-    "build": "tsup src/index.tsx --dts",
+    "build": "vite build",
     "lint-staged": "lint-staged",
     "prepare": "husky install"
   },
@@ -32,14 +32,21 @@
     "prettier": "^2.8.3",
     "react-dom": "^18.2.0",
     "ts-jest": "^29.0.5",
-    "tsup": "^6.5.0",
     "typescript": "^4.9.4",
     "vite": "^4.0.4"
   },
   "type": "module",
+  "files": [
+    "dist"
+  ],
   "main": "./dist/index.js",
   "module": "./dist/index.js",
-  "exports": "./dist/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.umd.cjs"
+    }
+  },
   "lint-staged": {
     "*.{ts,tsx}": [
       "prettier --write",
