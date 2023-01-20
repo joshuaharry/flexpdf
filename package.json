@@ -62,7 +62,8 @@
       "^.+\\.tsx?$": [
         "ts-jest",
         {
-          "isoltaedModules": true
+          "isoltaedModules": true,
+          "tsconfig": "tsconfig.test.json"
         }
       ]
     },
