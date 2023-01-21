@@ -2,7 +2,8 @@ import React from "react";
 import { Provider, defaultTheme } from "@adobe/react-spectrum";
 import { PDF } from "../src/pdf";
 
-const CLIENT_ID = process.env.ADOBE_CLIENT_ID as string;
+// @ts-expect-error - Vite changes import.meta
+const CLIENT_ID = import.meta.env.VITE_ADOBE_CLIENT_ID as string;
 
 export const App = () => {
   return (
