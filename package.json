@@ -58,10 +58,7 @@
   "jest": {
     "transform": {
       "^.+\\.tsx?$": [
-        "ts-jest",
-        {
-          "isoltaedModules": true
-        }
+        "ts-jest"
       ]
     },
     "testEnvironment": "jest-environment-jsdom",
