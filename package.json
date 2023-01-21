@@ -1,5 +1,5 @@
 {
-  "name": "react-pdf-dom",
+  "name": "nlpdf",
   "version": "0.0.1",
   "description": "Flexible UI components for building sophisticated web applications atop PDF documents.",
   "scripts": {
