@@ -92,6 +92,11 @@
       "plugin:@typescript-eslint/recommended",
       "plugin:react-hooks/recommended"
     ],
+    "settings": {
+      "react": {
+        "version": "detect"
+      }
+    },
     "overrides": [],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
