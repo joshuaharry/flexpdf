@@ -1,7 +1,4 @@
 import React from "react";
-import { Text } from "@adobe/react-spectrum";
-
-const RANDOM_PDF_ID = globalThis.crypto.randomUUID();
 
 interface Header {
   // Key needed to view a PDF.
@@ -27,59 +24,82 @@ interface PdfContent {
   };
 }
 
-interface ViewConfig {
-  /**
-   * TODO: In order for the technique involving DOM components to work, we have
-   * to make sure this is set to 'IN_LINE', but consumers of this library who
-   * just want to use a nice React wrapper for the Adobe Embed API might want
-   * to use something different.
-   */
-  // How is the PDF embedded?
-  embedMode: "IN_LINE";
-}
+type ViewConfig =
+  | { embedMode: "IN_LINE" }
+  | {
+      embedMode: "SIZED_CONTAINER";
+      showFullScreen?: boolean;
+      showDownloadPDF?: boolean;
+      showPrintPDF?: boolean;
+    }
+  | { embedMode: "LIGHT_BOX" }
+  | { embedMode: "FULL_WINDOW" };
 
-interface PdfProps {
+/**
+ * TODO:
+ */
+type AdobeEvent = {
+  data: { pageNumber: number; fileName: string };
+  type: string;
+};
+
+type AdobeEventHandler = (event: AdobeEvent) => unknown;
+
+type EventCallbackConfig = {
+  embedPDFAnalytics: boolean;
+  listenOn?: Array<unknown>;
+};
+
+export interface PdfOptions {
   // What client ID is needed to use the embed API?
   clientId: string;
+  // Into which div should we render the PDF?
+  divId: string;
   // What configuration object is needed to specify the PDF?
   pdfConfig: PdfContent;
   // What configuration object is needed to specify the view?
   viewConfig: ViewConfig;
-  // What are the styles of the parent div?
-  parentContainerCss?: React.CSSProperties;
-  // What are the children of the PDF?
-  children?: React.ReactNode;
+  // How do we handle certain events from the Adobe Embed API?
+  eventHandler?: AdobeEventHandler;
+  // What options should we add to the view callback?
+  eventCallbackConfig?: EventCallbackConfig;
 }
 
-export const PDF_NOT_FOUND = `We could not find the Adobe Embed API on this page. Please add it into the document and try again.`;
+type AdobeEmbedErrors = "ADOBE_DC_NOT_IN_WINDOW";
 
-export const PDF = (props: PdfProps) => {
-  const { pdfConfig, viewConfig, clientId, parentContainerCss, children } =
-    props;
-  const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
+/**
+ * usePDF is a React hook that allows consumers to render a PDF into an
+ * arbitrary div of their choosing. One simply needs to ensure that the
+ * Adobe Embed API has been loaded into the page; this code takes care
+ * of rendering the PDF into the DOM correctly.
+ */
+export const usePDF = (options: PdfOptions): AdobeEmbedErrors | null => {
+  const { clientId, divId, pdfConfig, viewConfig } = options;
+  const [errorDetected, setErrorDetected] =
+    React.useState<AdobeEmbedErrors | null>(null);
   React.useEffect(() => {
     const handleLoadPdfEffect = async () => {
       // @ts-expect-error - AdobeDC is not part of the Window object.
       if (window.AdobeDC === undefined) {
-        setErrorMessage(PDF_NOT_FOUND);
+        setErrorDetected("ADOBE_DC_NOT_IN_WINDOW");
         return;
       }
       // @ts-expect-error - AdobeDC is not part of the Window object.
       const view = new window.AdobeDC.View({
         clientId: clientId,
-        divId: RANDOM_PDF_ID,
+        divId: divId,
       });
       await view.previewFile(pdfConfig, viewConfig);
+      view.registerCallback(
+        // @ts-expect-error - AdobeDC is not part of the Window object.
+        window.AdobeDC.View.Enum.CallbackType.EVENT_LISTENER,
+        (event: AdobeEvent) => {
+          console.log(event);
+        },
+        { enablePDFAnalytics: true }
+      );
     };
     handleLoadPdfEffect();
-  }, [clientId, pdfConfig, viewConfig]);
-  if (errorMessage !== null) {
-    return <Text>{errorMessage}</Text>;
-  }
-  return (
-    <div style={{ position: "relative", ...parentContainerCss }}>
-      <div id={RANDOM_PDF_ID} style={{ position: "absolute" }} />
-      {children}
-    </div>
-  );
+  }, [clientId, divId, pdfConfig, viewConfig]);
+  return errorDetected;
 };

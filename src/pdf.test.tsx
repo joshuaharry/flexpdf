@@ -1,12 +1,33 @@
 import React from "react";
 import { render } from "@testing-library/react";
-import { PDF, PDF_NOT_FOUND } from "./pdf";
+import { usePDF, PdfOptions } from "./pdf";
+
+const PDF_NOT_FOUND = `A fatal error occurred when attempting to render a PDF. Please contact the developer of this application for assistance.`;
+
+interface PdfProps extends PdfOptions {
+  children?: React.ReactNode;
+}
+
+const PDF = (props: PdfProps) => {
+  const { children, ...options } = props;
+  const error = usePDF(options);
+  if (error !== null) {
+    return (
+      <p>
+        A fatal error occurred when attempting to render a PDF. Please contact
+        the developer of this application for assistance.
+      </p>
+    );
+  }
+  return <>{children}</>;
+};
 
 describe("Our PDF component", () => {
   test("Renders without crashing", () => {
     render(
       <PDF
         clientId="1234"
+        divId="test"
         viewConfig={{ embedMode: "IN_LINE" }}
         pdfConfig={{
           metaData: { fileName: "foo", id: "bar" },
@@ -24,6 +45,7 @@ describe("Our PDF component", () => {
       const text = "TEST";
       const { queryByText } = render(
         <PDF
+          divId="test"
           clientId="1234"
           viewConfig={{ embedMode: "IN_LINE" }}
           pdfConfig={{
@@ -45,6 +67,7 @@ describe("Our PDF component", () => {
     const text = "TEST";
     const { getByText } = render(
       <PDF
+        divId="test"
         clientId="1234"
         viewConfig={{ embedMode: "IN_LINE" }}
         pdfConfig={{
