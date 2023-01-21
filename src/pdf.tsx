@@ -74,7 +74,14 @@ type AdobeEmbedErrors = "ADOBE_DC_NOT_IN_WINDOW";
  * of rendering the PDF into the DOM correctly.
  */
 export const usePDF = (options: PdfOptions): AdobeEmbedErrors | null => {
-  const { clientId, divId, pdfConfig, viewConfig } = options;
+  const {
+    clientId,
+    divId,
+    pdfConfig,
+    viewConfig,
+    eventHandler,
+    eventCallbackConfig,
+  } = options;
   const [errorDetected, setErrorDetected] =
     React.useState<AdobeEmbedErrors | null>(null);
   React.useEffect(() => {
@@ -93,13 +100,18 @@ export const usePDF = (options: PdfOptions): AdobeEmbedErrors | null => {
       view.registerCallback(
         // @ts-expect-error - AdobeDC is not part of the Window object.
         window.AdobeDC.View.Enum.CallbackType.EVENT_LISTENER,
-        (event: AdobeEvent) => {
-          console.log(event);
-        },
-        { enablePDFAnalytics: true }
+        eventHandler,
+        eventCallbackConfig
       );
     };
     handleLoadPdfEffect();
-  }, [clientId, divId, pdfConfig, viewConfig]);
+  }, [
+    clientId,
+    divId,
+    pdfConfig,
+    viewConfig,
+    eventHandler,
+    eventCallbackConfig,
+  ]);
   return errorDetected;
 };
