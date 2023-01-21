@@ -2,7 +2,6 @@ import React from "react";
 import { Provider, defaultTheme } from "@adobe/react-spectrum";
 import { PDF } from "../src/pdf";
 
-// @ts-expect-error - Vite injects environment variables this way.
 const CLIENT_ID = process.env.ADOBE_CLIENT_ID as string;
 
 export const App = () => {
