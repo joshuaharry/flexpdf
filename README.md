@@ -1,6 +1,6 @@
-# FlexPDF
+# Flex PDF
 
-A flexible collection of design patterns and UI components designed to make layering sophisticated functionality atop PDF documents easy.
+A flexible collection of design patterns and UI components designed to make building sophisticated applications on top of PDFs easy, especially those related to human-in-the-loop machine learning.
 
 ## Getting Started
 

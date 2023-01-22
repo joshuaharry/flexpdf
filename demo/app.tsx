@@ -57,8 +57,9 @@ export const App = () => {
       >
         <Heading level={1}>Flex PDF</Heading>
         <Text marginBottom="12px">
-          Components and design patterns for building applications that can
-          smoothly interact with PDF documents.
+          A flexible collection of design patterns and UI components designed to
+          make building sophisticated applications on top of PDFs easy,
+          especially those related to human-in-the-loop machine learning.
         </Text>
         <div style={{ border: "2px solid black" }}>
           <MainPdf />
