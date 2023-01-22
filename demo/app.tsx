@@ -3,7 +3,6 @@ import { usePDF, ResizableBox } from "../src";
 
 // @ts-expect-error - Vite changes import.meta
 const CLIENT_ID = import.meta.env.VITE_ADOBE_CLIENT_ID as string;
-console.log(CLIENT_ID);
 
 export const App = () => {
   usePDF({
