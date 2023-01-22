@@ -1,10 +1,11 @@
 import React from "react";
+import { Heading, Text, Provider, defaultTheme } from "@adobe/react-spectrum";
 import { usePDF, ResizableBox } from "../src";
 
 // @ts-expect-error - Vite changes import.meta
 const CLIENT_ID = import.meta.env.VITE_ADOBE_CLIENT_ID as string;
 
-export const App = () => {
+const MainPdf = () => {
   usePDF({
     divId: "pdf-id",
     clientId: CLIENT_ID,
@@ -27,21 +28,42 @@ export const App = () => {
     },
   });
   return (
-    <div>
+    <div
+      style={{
+        position: "relative",
+        overflow: "scroll",
+        height: "700px",
+        width: "800px",
+      }}
+    >
+      <ResizableBox
+        additionalCss={{ backgroundColor: "rgba(255,200,255,0.7)" }}
+        default={{ height: "100px", width: "200px", x: 20, y: 10 }}
+      />
+      <div style={{ position: "absolute" }} id="pdf-id" />
+    </div>
+  );
+};
+
+export const App = () => {
+  return (
+    <Provider theme={defaultTheme}>
       <div
         style={{
-          position: "relative",
-          overflow: "scroll",
-          height: "800px",
-          width: "800px",
+          display: "flex",
+          alignItems: "center",
+          flexDirection: "column",
         }}
       >
-        <ResizableBox
-          additionalCss={{ backgroundColor: "rgba(255,200,255,0.7)" }}
-          default={{ height: "200px", width: "200px", x: 0, y: 0 }}
-        />
-        <div style={{ position: "absolute" }} id="pdf-id" />
+        <Heading level={1}>Flex PDF</Heading>
+        <Text marginBottom="12px">
+          Components and design patterns for building applications that can
+          smoothly interact with PDF documents.
+        </Text>
+        <div style={{ border: "2px solid black" }}>
+          <MainPdf />
+        </div>
       </div>
-    </div>
+    </Provider>
   );
 };

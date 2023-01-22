@@ -97,12 +97,14 @@ export const usePDF = (options: PdfOptions): AdobeEmbedErrors | null => {
         divId: divId,
       });
       await view.previewFile(pdfConfig, viewConfig);
-      view.registerCallback(
-        // @ts-expect-error - AdobeDC is not part of the Window object.
-        window.AdobeDC.View.Enum.CallbackType.EVENT_LISTENER,
-        eventHandler,
-        eventCallbackConfig
-      );
+      if (eventHandler !== undefined) {
+        view.registerCallback(
+          // @ts-expect-error - AdobeDC is not part of the Window object.
+          window.AdobeDC.View.Enum.CallbackType.EVENT_LISTENER,
+          eventHandler,
+          eventCallbackConfig
+        );
+      }
     };
     handleLoadPdfEffect();
   }, [
