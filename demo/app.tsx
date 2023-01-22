@@ -1,5 +1,5 @@
 import React from "react";
-import { usePDF } from "../src/pdf";
+import { usePDF, ResizableBox } from "../src";
 
 // @ts-expect-error - Vite changes import.meta
 const CLIENT_ID = import.meta.env.VITE_ADOBE_CLIENT_ID as string;
@@ -36,6 +36,10 @@ export const App = () => {
           width: "800px",
         }}
       >
+        <ResizableBox
+          additionalCss={{ backgroundColor: "rgba(255,200,255,0.7)" }}
+          default={{ height: "200px", width: "200px", x: 0, y: 0 }}
+        />
         <div style={{ position: "absolute" }} id="pdf-id" />
       </div>
     </div>
