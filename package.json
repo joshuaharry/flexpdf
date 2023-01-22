@@ -18,6 +18,7 @@
     "pdf",
     "machine_learning"
   ],
+  "homepage": "https://ornate-sprite-a3f7e2.netlify.app",
   "source": "src/index.tsx",
   "main": "./dist/index.js",
   "types": "dist/index.d.ts",
