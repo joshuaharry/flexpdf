@@ -4,7 +4,7 @@ A flexible collection of design patterns and UI components designed to make buil
 
 ## Demo
 
-See [this website](https://app.netlify.com/sites/ornate-sprite-a3f7e2/overview) for a demo.
+See [this website](https://ornate-sprite-a3f7e2.netlify.app) for a demo.
 
 ## Getting Started
 
