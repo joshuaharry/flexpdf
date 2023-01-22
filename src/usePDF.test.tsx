@@ -1,6 +1,6 @@
 import React from "react";
 import { render } from "@testing-library/react";
-import { usePDF, PdfOptions } from "./pdf";
+import { usePDF, PdfOptions } from "./usePDF";
 
 const PDF_NOT_FOUND = `A fatal error occurred when attempting to render a PDF. Please contact the developer of this application for assistance.`;
 
