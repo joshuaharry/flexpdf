@@ -1,7 +1,7 @@
 {
   "name": "flexpdf",
-  "version": "0.0.2",
-  "description": "A flexible collection of design patterns and UI components designed to make building sophisticated applications on top of PDF documents easy, especially those related to human-in-the-loop machine learning.",
+  "version": "0.0.3",
+  "description": "A work in progress PDF library.",
   "scripts": {
     "start": "vite",
     "test": "jest",

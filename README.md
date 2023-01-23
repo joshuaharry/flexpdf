@@ -1,6 +1,6 @@
 # Flex PDF
 
-A flexible collection of design patterns and UI components designed to make building sophisticated applications on top of PDF documents easy, especially those related to human-in-the-loop machine learning.
+A work in progress PDF library.
 
 ## Demo
 
@@ -10,6 +10,8 @@ See [this website](https://ornate-sprite-a3f7e2.netlify.app) for a demo.
 
 To use this code in your project, you will need to add the peer dependencies listed in the `package.json` file. You will also need to install the Adobe Embed API in order to render PDF documents; consult [this documentation](https://developer.adobe.com/document-services/apis/pdf-embed/) for more details.
 
-## Work in Progress
+## Things to Do
 
-We are currently in the pre-alpha stage of development. Further updates in the weeks ahead are to come.
+- Collect a set of use cases to support conveniently out of the box; implement them
+- Export state of DOM/PDF as a JSON file; convenient "save as PDF" functionality
+- Documentation website
