@@ -97,14 +97,12 @@ export const usePDF = (options: PdfOptions): AdobeEmbedErrors | null => {
       });
       view.previewFile(pdfConfig, viewConfig);
       if (eventHandler !== undefined) {
-        // AdobeDC.View.Enum.PDFAnalyticsEvents.PAGE_VIEW
         view.registerCallback(
           // @ts-expect-error - AdobeDC is not part of the Window object.
           window.AdobeDC.View.Enum.CallbackType.EVENT_LISTENER,
           eventHandler,
           eventCallbackConfig
         );
-        console.log(view);
       }
     };
     handleLoadPdfEffect();
