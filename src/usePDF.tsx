@@ -1,13 +1,13 @@
 import React from "react";
 
-interface Header {
+export interface Header {
   // Key needed to view a PDF.
   key: string;
   // Value needed to view a PDF.
   value: string;
 }
 
-interface PdfContent {
+export interface PdfContent {
   content: {
     location: {
       // What is the URL of the file?
@@ -20,11 +20,11 @@ interface PdfContent {
     // What is the name of the file?
     fileName: string;
     // What is the ID of the file?
-    id: string;
+    id?: string;
   };
 }
 
-type ViewConfig =
+export type ViewConfig =
   | { embedMode: "IN_LINE" }
   | {
       embedMode: "SIZED_CONTAINER";
@@ -35,18 +35,17 @@ type ViewConfig =
   | { embedMode: "LIGHT_BOX" }
   | { embedMode: "FULL_WINDOW" };
 
-/**
- * TODO:
- */
-type AdobeEvent = {
+export type AdobePageViewEvent = {
   data: { pageNumber: number; fileName: string };
-  type: string;
+  type: "PAGE_VIEW";
 };
 
-type AdobeEventHandler = (event: AdobeEvent) => unknown;
+export type AdobeEvent = { type: string; data: unknown };
+
+export type AdobeEventHandler = (event: AdobeEvent) => unknown;
 
 type EventCallbackConfig = {
-  embedPDFAnalytics: boolean;
+  enablePDFAnalytics: boolean;
   listenOn?: Array<unknown>;
 };
 
@@ -96,14 +95,16 @@ export const usePDF = (options: PdfOptions): AdobeEmbedErrors | null => {
         clientId: clientId,
         divId: divId,
       });
-      await view.previewFile(pdfConfig, viewConfig);
+      view.previewFile(pdfConfig, viewConfig);
       if (eventHandler !== undefined) {
+        // AdobeDC.View.Enum.PDFAnalyticsEvents.PAGE_VIEW
         view.registerCallback(
           // @ts-expect-error - AdobeDC is not part of the Window object.
           window.AdobeDC.View.Enum.CallbackType.EVENT_LISTENER,
           eventHandler,
           eventCallbackConfig
         );
+        console.log(view);
       }
     };
     handleLoadPdfEffect();
